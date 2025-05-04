@@ -1,4 +1,4 @@
-# Project Registration & Reservation Form
+# Registration / Reservation Form
 
 A web-based application that allows users to register and book reservations. Built using HTML, CSS, PHP, and MySQL, this system is ideal for events, appointments, or any booking-based service.
 

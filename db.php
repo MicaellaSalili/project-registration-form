@@ -1,4 +1,17 @@
 <?php
+header('Access-Control-Allow-Origin: *'); 
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS'); 
+header('Access-Control-Allow-Headers: Content-Type'); 
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200); 
+    exit;
+}
+
 // ENUM values
 define('SEATS_TYPE_SOLO', 'solo');
 define('SEATS_TYPE_DUO', 'duo');
@@ -143,5 +156,36 @@ class DebitCredit {
         }
         return true;
     }
+}
+
+// Database connection
+$host = 'localhost';
+$dbname = 'reservation_db'; 
+$username = 'root'; 
+$password = ''; 
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo json_encode(['success' => false, 'message' => 'Database connection failed: ' . $e->getMessage()]);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $stmt = $pdo->prepare("INSERT INTO bookings (first_name, last_name, date_time, email, phone_number, seats_booked, notes) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->execute([
+        $_POST['firstName'],
+        $_POST['lastName'],
+        $_POST['dateTime'],
+        $_POST['email'],
+        $_POST['phoneNumber'],
+        $_POST['seatsBooked'],
+        $_POST['notes'] ?? null
+    ]);
+    echo json_encode(['success' => true, 'message' => 'Reservation submitted successfully!']);
+} else {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Method not allowed.']);
 }
 ?>
