@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"> 
+    <head>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lunan Booking</title>
+        <link rel="stylesheet" href="Lunan Booking.css"/>
+    </head>
+
+    <body>
+      <div class="container">
+    
+        <!-- Booking Form Page -->
+        <div id="bookingPage">
+          <h1>Study Place Booking</h1>
+          <form id="bookingForm">
+            <!-- All your fields -->
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" required />
+    
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" required />
+    
+            <label for="datetime">Date and Time:</label>
+            <input type="datetime-local" id="datetime" required />
+    
+            <label for="email">Email:</label>
+            <input type="email" id="email" required />
+    
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" required pattern="[0-9]{10,15}" />
+    
+            <label for="seats">Seats Booked:</label>
+            <select id="seats" required>
+              <option value="">-- Select Option --</option>
+              <option value="Solo">Solo</option>
+              <option value="Duo">Duo</option>
+              <option value="Group">Group</option>
+            </select>
+    
+            <label for="notes">Notes:</label>
+            <textarea id="notes" rows="3" placeholder="Optional..."></textarea>
+    
+            <button type="submit">Proceed to Payment</button>
+          </form>
+        </div>
+    
+        <!-- Payment Page -->
+        <div id="paymentPage" class="hidden">
+          <h1>Select Payment Method</h1>
+          <form id="paymentForm">
+            <label for="method">Payment Method:</label>
+            <select id="method" required>
+              <option value="">-- Choose Method --</option>
+              <option value="gcash">GCash</option>
+              <option value="maya">Maya</option>
+              <option value="seabank">Seabank</option>
+              <option value="card">Credit/Debit Card</option>
+            </select>
+    
+            <div id="cardTypeContainer" class="hidden">
+              <label for="cardType">Card Type:</label>
+              <select id="cardType">
+                <option value="credit">Credit</option>
+                <option value="debit">Debit</option>
+              </select>
+            </div>
+    
+            <div id="paymentDetails"></div>
+    
+            <button type="submit">Submit Payment</button>
+          </form>
+        </div>
+    
+        <div id="ticket" class="hidden">
+          <h2>Booking Ticket</h2>
+          <p><strong>Name:</strong> <span id="ticketName"></span></p>
+          <p><strong>Date & Time:</strong> <span id="ticketDateTime"></span></p>
+          <p><strong>Seats:</strong> <span id="ticketSeats"></span></p>
+          <p><strong>Status:</strong> <span id="ticketStatus">Pending</span></p>
+        </div>        
+
+        <div id="confirmation" class="hidden"></div>
+      </div>
+    
+      <script src="Lunan Booking.js"></script>
+    </body>
+    
+    
+</html>
+
+
