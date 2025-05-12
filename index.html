@@ -13,7 +13,7 @@
         <!-- Booking Form Page -->
         <div id="bookingPage">
           <h1>Study Place Booking</h1>
-          <form id="bookingForm">
+          <form id="bookingForm" form action="db.php" method="POST">
             <!-- All your fields -->
             <label for="firstName">First Name: <span style="color: red;">*</span></label>
             <input type="text" id="firstName" required />
@@ -50,7 +50,7 @@
         <!-- Payment Page -->
         <div id="paymentPage" class="hidden">
           <h1>Select Payment Method</h1>
-          <form id="paymentForm">
+          <form id="paymentForm" form action="db.php" method="POST">
             <label for="method">Payment Method: <span style="color: red;">*</span></label>
             <select id="method" required>
               <option value="">-- Choose Method --</option>

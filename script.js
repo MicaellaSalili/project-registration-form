@@ -100,7 +100,7 @@ bookingForm.addEventListener("submit", function (e) {
     hours: hoursSelect.value,
     studentStatus: document.querySelector('input[name="studentStatus"]:checked')?.value,
     notes: document.getElementById("notes").value.trim(),
-    totalPrice: totalPrice // Pass the calculated price
+    totalPrice: totalPrice
   };
 
   // Display the total price in the payment section
@@ -150,20 +150,89 @@ methodSelect.addEventListener("change", function () {
 document.getElementById("paymentForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
+  // Collect payment details based on payment method
+  const paymentMethod = document.getElementById("method").value;
+  let paymentData = {
+    payment_method: paymentMethod
+  };
+
+  if (paymentMethod === "gcash" || paymentMethod === "maya" || paymentMethod === "seabank") {
+    const mobile = document.getElementById("mobile")?.value.trim();
+    if (!mobile || !/^[0-9]{10,15}$/.test(mobile)) {
+      alert("Please enter a valid mobile number (10-15 digits).");
+      return;
+    }
+    paymentData.mobile = mobile;
+  } else if (paymentMethod === "card") {
+    const cardNumber = document.getElementById("cardNumber")?.value.trim();
+    const expiry = document.getElementById("expiry")?.value.trim();
+    const cvv = document.getElementById("cvv")?.value.trim();
+    const cardType = document.getElementById("cardType")?.value;
+
+    if (!cardNumber || !/^[0-9]{16}$/.test(cardNumber)) {
+      alert("Please enter a valid 16-digit card number.");
+      return;
+    }
+    if (!expiry) {
+      alert("Please enter a valid expiry date.");
+      return;
+    }
+    if (!cvv || !/^[0-9]{3,4}$/.test(cvv)) {
+      alert("Please enter a valid CVV (3-4 digits).");
+      return;
+    }
+    paymentData.card_number = cardNumber;
+    paymentData.expiry_date = expiry;
+    paymentData.cvv = cvv;
+    paymentData.card_type = cardType;
+  }
+
+   // Debugging: Log the payload
+  const payload = { ...bookingData, ...paymentData };
+  console.log("Payload sent to db.php:", payload);
+
+
   // Hide payment section
   document.getElementById("paymentPage").style.display = "none";
 
   // Fill in ticket details
   const name = document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
   const datetime = document.getElementById("datetime").value;
-  const paymentMethod = document.getElementById("method").value;
-
   document.getElementById("ticketName").textContent = name;
   document.getElementById("ticketDateTime").textContent = datetime;
   document.getElementById("ticketStatus").textContent = "Pending";
   document.getElementById("ticketPaymentMethod").textContent = paymentMethod;
 
+
   // Show ticket section
   document.getElementById("ticket").style.display = "block";
+
+  // Send data to the server
+  fetch("http://localhost/project-registration-form/db.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data.success) {
+        alert(data.message);
+      } else {
+        alert("Error: " + data.message);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("An error occurred: " + error.message);
+    });
 });
+ 
+
 
