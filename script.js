@@ -62,12 +62,14 @@ document.getElementById("paymentForm").addEventListener("submit", function (e) {
     const name = document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
     const datetime = document.getElementById("datetime").value;
     const seats = document.getElementById("seats").value;
-  
+    const paymentMethod = document.getElementById('method').value;
+
     document.getElementById("ticketName").textContent = name;
     document.getElementById("ticketDateTime").textContent = datetime;
     document.getElementById("ticketSeats").textContent = seats;
     document.getElementById("ticketStatus").textContent = "Pending";
-  
+    document.getElementById('ticketPaymentMethod').textContent = paymentMethod;
+
     // Show ticket section
     document.getElementById("ticket").style.display = "block";
   });
