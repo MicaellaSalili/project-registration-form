@@ -23,7 +23,8 @@ class Booking {
     public $date_time;
     public $email;
     public $phone_number;
-    public $seats_booked;
+    public $hours_booked;
+    public $student;
     public $notes;
     
     public function __construct($first_name, $last_name, $date_time, $email, $phone_number, $seats_booked, $notes = null) {
@@ -32,7 +33,8 @@ class Booking {
         $this->date_time = $date_time;
         $this->email = $email;
         $this->phone_number = $phone_number;
-        $this->seats_booked = $seats_booked;
+        $this->hours_booked = $hours_booked; 
+        $this->student = $student;
         $this->notes = $notes;
     }
     
@@ -41,10 +43,8 @@ class Booking {
             return false;
         }
 
-        $valid_seats_types = [SEATS_TYPE_SOLO, SEATS_TYPE_DUO, SEATS_TYPE_GROUPED];
-        if (!in_array($this->seats_booked, $valid_seats_types)) {
-            return false;
-        }
+        if (!is_numeric($this->hours_booked) || $this->hours_booked <= 0) {
+            return false; 
 
         return true;
     }
