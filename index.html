@@ -15,27 +15,29 @@
           <h1>Study Place Booking</h1>
           <form id="bookingForm">
             <!-- All your fields -->
-            <label for="firstName">First Name:</label>
+            <label for="firstName">First Name: <span style="color: red;">*</span></label>
             <input type="text" id="firstName" required />
     
-            <label for="lastName">Last Name:</label>
+            <label for="lastName">Last Name: <span style="color: red;">*</span></label>
             <input type="text" id="lastName" required />
     
-            <label for="datetime">Date and Time:</label>
+            <label for="datetime">Date and Time: <span style="color: red;">*</span></label>
             <input type="datetime-local" id="datetime" required />
     
-            <label for="email">Email:</label>
+            <label for="email">Email: <span style="color: red;">*</span></label>
             <input type="email" id="email" required />
     
-            <label for="phone">Phone Number:</label>
+            <label for="phone">Phone Number: <span style="color: red;">*</span></label>
             <input type="tel" id="phone" required pattern="[0-9]{10,15}" />
-    
-            <label for="seats">Seats Booked:</label>
-            <select id="seats" required>
+  
+            <label for="hours">Number of Hours: <span style="color: red;">*</span></label>
+            <select id="hours" required>
               <option value="">-- Select Option --</option>
-              <option value="Solo">Solo</option>
-              <option value="Duo">Duo</option>
-              <option value="Group">Group</option>
+              <option value="1">1 Hour</option>
+              <option value="2">2 Hours</option>
+              <option value="3">3 Hours</option>
+              <option value="5">5 Hours</option>
+              <option value="8">8 Hours</option>
             </select>
     
             <label for="notes">Notes:</label>
@@ -49,7 +51,7 @@
         <div id="paymentPage" class="hidden">
           <h1>Select Payment Method</h1>
           <form id="paymentForm">
-            <label for="method">Payment Method:</label>
+            <label for="method">Payment Method: <span style="color: red;">*</span></label>
             <select id="method" required>
               <option value="">-- Choose Method --</option>
               <option value="gcash">GCash</option>
@@ -72,11 +74,11 @@
           </form>
         </div>
     
+        <!-- Booking Ticket -->
         <div id="ticket" class="hidden">
           <h2>Booking Ticket</h2>
           <p><strong>Name:</strong> <span id="ticketName"></span></p>
           <p><strong>Date & Time:</strong> <span id="ticketDateTime"></span></p>
-          <p><strong>Seats:</strong> <span id="ticketSeats"></span></p>
           <p><strong>Status:</strong> <span id="ticketStatus">Pending</span></p>
           <p><strong>Payment Method:</strong> <span id="ticketPaymentMethod"></span></p>
         </div>        
@@ -86,8 +88,6 @@
     
       <script src="script.js"></script>
     </body>
-    
-    
 </html>
 
 
