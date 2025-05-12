@@ -1,8 +1,5 @@
 <?php
 // ENUM values
-define('SEATS_TYPE_SOLO', 'solo');
-define('SEATS_TYPE_DUO', 'duo');
-define('SEATS_TYPE_GROUPED', 'grouped');
 
 define('BOOKING_STATUS_PENDING', 'pending');
 define('BOOKING_STATUS_CONFIRMED', 'confirmed');
@@ -47,6 +44,7 @@ class Booking {
             return false; 
 
         return true;
+        }
     }
 }
 
@@ -144,4 +142,5 @@ class DebitCredit {
         return true;
     }
 }
+
 ?>
