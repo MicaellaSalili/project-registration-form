@@ -1,14 +1,76 @@
+@font-face {
+  font-family: 'Jano Sans Black';
+  src: url('fonts/Jano Sans Pro Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Jano Sans Black Italic';
+  src: url('fonts/Jano Sans Pro Black Italic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Jano Sans SemiBold Italic';
+  src: url('fonts/Jano Sans Pro SemiBold Italic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+.circle-top{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 300px;
+  background-color: #2481bc;
+  clip-path: circle(60% at 0 0);
+  z-index: -1;
+}
+
+.ellipse-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1400px;
+  height: 100px;
+  background-color: #d45626;
+  clip-path: ellipse(43% 120% at 80% 7%);
+  z-index: -1;
+}
+
+.ellipse-bottom {
+  position: absolute;
+  top: 820px;
+  left: 0;
+  width: 1400px;
+  height: 100px;
+  background-color: #d45626;
+  clip-path: ellipse(43% 120% at 17% 99%);
+  z-index: -1;
+}
+
+.circle-bottom {
+  position: absolute;
+  top:720px;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 200px;
+  background-color: #2481bc;
+  clip-path: circle(60% at 100% 100%);
+  z-index: -1;
+}
+
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f3f4f6;
+    font-family: 'Jano Sans Black', sans-serif;
+    background-color: #e5d6d1;
     display: flex;
     justify-content:center;
     align-items: center;
     padding: 40px;
-    background-image:url("kkk.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-blend-mode: multiply; /* Blends color with the image */;
   }
   
   #paymentpage.hidden{
@@ -16,7 +78,7 @@ body {
   }
 
   .container {
-    background-color: #fff;
+    background-color: #fff5e3;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -24,10 +86,13 @@ body {
     width: 100%;
   }
   
+  
   h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #374151;
+    color:#2481bc;
+    margin: 0px;
+    font-family: 'Jano Sans Black Italic', sans-serif;
   }
   
   form {
@@ -35,10 +100,16 @@ body {
     flex-direction: column;
   }
   
+  p{
+  font-family: 'Jano Sans Semibold Italic', sans-serif;
+  color: #d45626;
+  }
+
   label {
     margin-top: 12px;
+    font-family:'Jano Sans Semibold Italic', sans-serif;
     font-weight: 600;
-    color: #4b5563;
+    color: #d45626;
   }
   
   input, select {
@@ -52,7 +123,7 @@ body {
   button {
     margin-top: 20px;
     padding: 12px;
-    background-color: #3b82f6;
+    background-color: #2481bc;
     color: white;
     font-size: 1rem;
     border: none;
